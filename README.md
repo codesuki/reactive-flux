@@ -78,6 +78,13 @@ var SomeComponent = React.createClass({
         );
     }
 });
+
+// call our action
+SomeAction("test");
+
+// our Action is a subject so we can subscribe to an API or similar
+var source = Rx.Observable.fromEvent(document, 'mousemove');
+source.subscribe(SomeAction); // All mousemove events will be send to subscribing stores
 ```
 
 Other React, Rx, Flux related projects
