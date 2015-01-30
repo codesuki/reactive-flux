@@ -6,7 +6,7 @@ I was trying to use React + Flux to build a Dashboard but while reading Flux tut
 
 React and the Flux architecture seem to fit well with RxJS, so this is my take on it.
 
-This is my first JavaScript code so feel free to send pull requests and let me know of any bugs or improvements you can think of. It's inspired from several libraries that try to combine React with Rx but they didn't seem to do exactly what I had in mind.
+This is my first JavaScript code so feel free to send pull requests and let me know of any bugs or improvements you can think of. It's inspired by several libraries that try to combine React with Rx but they didn't seem to do exactly what I had in mind.
 
 Installation
 ============
