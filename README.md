@@ -79,3 +79,14 @@ var SomeComponent = React.createClass({
     }
 });
 ```
+
+Other React, Rx, Flux related projects
+======================================
+
+- [Rx-React](https://github.com/fdecampredon/rx-react)
+- [Rx-Flux](https://github.com/fdecampredon/rx-flux)
+- [React RxJS Autocomplete](https://github.com/eliseumds/react-autocomplete)
+- [React RxJS TODO MVC](https://github.com/fdecampredon/react-rxjs-todomvc)
+- [Rx TODO MVC](https://github.com/footballradar/rx-todomvc)
+- [React RxJS Router](https://github.com/kmcclosk/reactjs-rxjs-example)
+- [React + RxJS + Angular 2.0 di.js TODO MVC](https://github.com/joelhooks/react-rxjs-angular-di-todomvc)
