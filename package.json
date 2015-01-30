@@ -1,6 +1,6 @@
 {
   "name": "reactive-flux",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fluxish model implemented with RxJS",
   "main": "src/index.js",
   "scripts": {
