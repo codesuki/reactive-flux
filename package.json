@@ -1,9 +1,11 @@
 {
   "name": "reactive-flux",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Fluxish model implemented with RxJS",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "prepublish": "babel -c -d ./lib ./src/",
+    "postpublish": "rm -r ./lib",
     "test": "make test"
   },
   "repository": {
@@ -24,7 +26,7 @@
   },
   "homepage": "https://github.com/codesuki/reactive-flux",
   "devDependencies": {
-    "6to5": "^3.1.1",
+    "babel": "^4.6.6",
     "chai": "^1.10.0",
     "mocha": "^2.1.0"
   },
