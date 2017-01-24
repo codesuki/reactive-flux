@@ -1,4 +1,4 @@
-require("babel/register");
+require("babel-register");
 
 var expect = require('chai').expect,
     library = require('../src/index'),
@@ -7,44 +7,44 @@ var expect = require('chai').expect,
 
 describe('#Action', function() {
     describe('#Action basic notification', function() {
-	var TestAction = Action.make();
-	
-	it("should notify listeners when called", function(done) {
-	    TestAction.subscribe(function (data) {
-		expect(data).to.equal('Test');
-		done();
-	    });
-	    TestAction("Test");
-	});
+        var TestAction = Action.make();
+
+        it("should notify listeners when called", function(done) {
+            TestAction.subscribe(function (data) {
+                expect(data).to.equal('Test');
+                done();
+            });
+            TestAction("Test");
+        });
     });
-	     
+
     describe('#Action waitFor ordering', function() {
-	var TestAction = Action.make();
+        var TestAction = Action.make();
 
-	var calledA = false;
-	var calledB = false;
+        var calledA = false;
+        var calledB = false;
 
-	var storeA = new Store();
-	var storeB = new Store();
+        var storeA = new Store();
+        var storeB = new Store();
 
-	it("should notify listeners A,B before C", function(done) {
-	    storeA.observe(TestAction, function(data) {
-		calledA = true;
-	    });
-	    
-	    TestAction.waitFor(storeA, storeB).subscribe(function (data) {
-		expect(data).to.equal('Test');
-		if (calledA && calledB) {
-		    done();
-		}
-	    });
+        it("should notify listeners A,B before C", function(done) {
+            storeA.observe(TestAction, function(data) {
+                calledA = true;
+            });
 
-	    storeB.observe(TestAction, function(data) {
-		calledB = true;
-	    });
-	    
-	    TestAction("Test");
-	});
+            TestAction.waitFor(storeA, storeB).subscribe(function (data) {
+                expect(data).to.equal('Test');
+                if (calledA && calledB) {
+                    done();
+                }
+            });
+
+            storeB.observe(TestAction, function(data) {
+                calledB = true;
+            });
+
+            TestAction("Test");
+        });
     });
 });
 
@@ -54,63 +54,59 @@ describe('#Store', function() {
     var TestActionB = Action.make();
 
     describe('#Store subscription', function() {
-	var calledA = false;
-	var calledB = false;
-	
-	var subA = TestStore.observe(TestActionA, function (data) { /* store callback */});
-	var subB = TestStore.observe(TestActionB, function (data) { /* store callback */});
-	
-	it("should notify listeners when any subscribed action happens", function(done) {
-	    TestStore.subscribe(function (data) {
-		calledB = true;
+        var calledA = false;
+        var calledB = false;
 
-	    });
-	    TestStore.subscribe(function (data) {
-		calledA = true;
-	    });
-	    
-	    TestActionA("TestA");
-	    TestActionB("TestB");
+        var subA = TestStore.observe(TestActionA, function (data) { /* store callback */});
+        var subB = TestStore.observe(TestActionB, function (data) { /* store callback */});
 
-	    subA.dispose();
-	    subB.dispose();
+        it("should notify listeners when any subscribed action happens", function(done) {
+            TestStore.subscribe(function (data) {
+                calledB = true;
 
-	    if (calledA && calledB) {
-		done();
-	    }
-	});
+            });
+            TestStore.subscribe(function (data) {
+                calledA = true;
+            });
+
+            TestActionA("TestA");
+            TestActionB("TestB");
+
+            subA.dispose();
+            subB.dispose();
+
+            if (calledA && calledB) {
+                done();
+            }
+        });
     });
 
     describe('#Store unsubscription', function() {
-	var calledA = false;
-	var calledB = false;
+        var calledA = false;
+        var calledB = false;
 
-	var subA = TestStore.observe(TestActionA, function (data) { /* store callback */});
-	var subB = TestStore.observe(TestActionB, function (data) { /* store callback */});
+        var subA = TestStore.observe(TestActionA, function (data) { /* store callback */});
+        var subB = TestStore.observe(TestActionB, function (data) { /* store callback */});
 
-	subB.dispose();
-	subA.dispose();
-	
-	it("should not notify unsubscribed subscribers", function(done) {
-	    TestStore.subscribe(function (data) {
-		console.log("A");
-		calledB = true;
-	    });
-	    TestStore.subscribe(function (data) {
-		console.log("B");
-		calledA = true;
-	    });
+        subB.dispose();
+        subA.dispose();
 
-	    TestActionA("TestA");
-	    TestActionB("TestB");
-	    
-	    if (!calledA && !calledB) {
-		done();
-	    }
-	});
-    });	     
+        it("should not notify unsubscribed subscribers", function(done) {
+            TestStore.subscribe(function (data) {
+                console.log("A");
+                calledB = true;
+            });
+            TestStore.subscribe(function (data) {
+                console.log("B");
+                calledA = true;
+            });
+
+            TestActionA("TestA");
+            TestActionB("TestB");
+
+            if (!calledA && !calledB) {
+                done();
+            }
+        });
+    });
 });
-
-
-
-
