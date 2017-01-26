@@ -126,3 +126,38 @@ var LoginComponent = React.createClass({
 var source = Rx.Observable.fromEvent(document, 'mousemove');
 source.subscribe(SomeAction); // All mousemove events will be send to subscribing stores of SomeAction
 ```
+
+Alternatively, you can use the store mixin for the component
+
+```javascript
+var LoginComponent = React.createClass({
+	mixins: [LoginStore.mixin]
+	getInitialState() {
+		return { isLoggedIn: LoginStore.isLoggedIn() };
+	},
+
+	onSubscribe() {
+		// This function defaults to a noop, and you can override it if that makes sense
+	},
+
+	render() {
+		return (
+			// something
+		);
+	},
+
+	handleSubmit(e) {
+		e.preventDefault();
+
+		let username = this.refs.username.getValue().trim();
+		let password = this.refs.password.getValue().trim();
+
+		if (!username || !password) {
+			return;
+		}
+
+		// call our action
+		LoginAction(username, password);
+	}
+});
+```
